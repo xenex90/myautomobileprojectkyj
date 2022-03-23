@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<form name="form" action="/login/joinprocess" method="post">
+    <div><div>id</div><div><input type="text" name = "id"/></div></div>
+    <div><div>password</div><input type="password" name = "password"/></div>
+    <div><div>password확인</div><input type="password"/></div>
+    <div><div>이름</div><input type="text" name = "name"/></div>
+    <div><div>생년월일</div><input type="text" name = "birthday"/></div>
+    <div><div>주소</div><input type="text" name = "address"/></div>
+    <div><div>폰번호</div><input type = "text" name = "phonenum"/></div>
+   <input type = "submit" value = "회원가입"><a href = "../index.html">돌아가기</a>
+</form>
+</body>
+</html>
