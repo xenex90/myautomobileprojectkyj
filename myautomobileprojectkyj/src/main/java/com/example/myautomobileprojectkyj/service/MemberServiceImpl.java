@@ -36,4 +36,14 @@ public class MemberServiceImpl implements MemberService{
         map.put("password",memberVo.getPassword());
         return memberMapper.countMember(map);
     }
+
+    public MemberVo selectMember(MemberVo memberVo) {
+        HashMap map = new HashMap<String, String>();
+        map.put("",memberVo.getName());
+        map.put("",memberVo.getPhonenum());
+        map.put("",memberVo.getEmail());
+        map.put("",memberVo.getDomain());
+
+        return memberMapper.getIdOfMember(map);
+    }
 }

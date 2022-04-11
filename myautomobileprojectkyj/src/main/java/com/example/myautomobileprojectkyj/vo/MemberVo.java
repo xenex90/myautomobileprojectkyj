@@ -8,6 +8,8 @@ public class MemberVo {
     private int birthday;
     private String address;
     private int phonenum;
+    private String email;
+    private String domain;
 
     public int getSeq() {
         return seq;
@@ -63,5 +65,21 @@ public class MemberVo {
 
     public void setPhonenum(int phonenum) {
         this.phonenum = phonenum;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public String getDomain() {
+        return domain;
     }
 }

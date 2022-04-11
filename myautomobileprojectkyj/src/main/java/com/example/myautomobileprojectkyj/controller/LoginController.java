@@ -85,7 +85,7 @@ public class LoginController {
 
     @RequestMapping("/logoutprocess")
     public ModelAndView logoutController(ModelAndView ModelAndView, HttpServletRequest request) throws Exception {
-        //세션을 삭제한다.
+
         HttpSession session = request.getSession(false);
         ModelAndView mv = new ModelAndView();
         if (session != null) {
@@ -93,6 +93,40 @@ public class LoginController {
             mv.addObject("logout","1");
         }
         mv.setViewName("index");
+        return mv;
+    }
+
+
+    @RequestMapping("/withdrawalprocess")
+    public ModelAndView WithdrawalController(ModelAndView ModelAndView, HttpServletRequest request) throws Exception {
+
+        HttpSession session = request.getSession(false);
+        ModelAndView mv = new ModelAndView();
+        if (session != null) {
+            session.invalidate();
+            mv.addObject("logout","1");
+        }
+        mv.setViewName("index");
+        return mv;
+    }
+
+    @RequestMapping("/idcheck")
+    public ModelAndView IdCheckController(ModelAndView ModelAndView, HttpServletRequest request) throws Exception {
+
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("login/idcheckpage");
+
+        return mv;
+    }
+
+    @RequestMapping("/idcheckprocess")
+    public ModelAndView IdCheckProcessController(ModelAndView ModelAndView, HttpServletRequest request) throws Exception {
+
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("login/idcheckpage");
+
         return mv;
     }
 
