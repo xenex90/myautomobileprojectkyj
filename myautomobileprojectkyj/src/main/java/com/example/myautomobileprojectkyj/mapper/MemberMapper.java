@@ -15,4 +15,5 @@ public interface MemberMapper{
 
    int countMember(HashMap map);
 
+   MemberVo getIdOfMember(HashMap map);
 }

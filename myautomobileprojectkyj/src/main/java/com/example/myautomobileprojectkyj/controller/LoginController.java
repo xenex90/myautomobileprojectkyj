@@ -3,11 +3,13 @@ package com.example.myautomobileprojectkyj.controller;
 import com.example.myautomobileprojectkyj.service.MemberService;
 import com.example.myautomobileprojectkyj.vo.MemberVo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Locale;
 
 
 @Controller
@@ -31,10 +33,25 @@ public class LoginController {
     }
 
     @RequestMapping("/join")
-    public ModelAndView joinController(ModelAndView ModelAndView){
+    public ModelAndView joinController(ModelAndView ModelAndView, HttpServletRequest request, @RequestParam HashMap<String, String> p, Locale locale){
         System.out.println("loginController 실행됨 : join" );
         ModelAndView mv = new ModelAndView();
         mv.setViewName("login/joinpage");
+
+
+        String inputYn = request.getParameter("inputYn");
+        String zipNo = request.getParameter("zipNo");
+        String roadAddrPart1 = request.getParameter("roadAddrPart1");
+        String roadAddrPart2 = request.getParameter("roadAddrPart2");
+        String addrDetail = request.getParameter("addrDetail");
+        String jibunAddr = request.getParameter("jibunAddr");
+
+        mv.addObject("inputYn", inputYn);
+        mv.addObject("zipNo", zipNo);
+        mv.addObject("roadAddrPart1", roadAddrPart1);
+        mv.addObject("roadAddrPart2", roadAddrPart2);
+        mv.addObject("jibunAddr", jibunAddr);
+        mv.addObject("addrDetail", addrDetail);
 
         return mv;
     }
@@ -120,14 +137,59 @@ public class LoginController {
         return mv;
     }
 
-    @RequestMapping("/idcheckprocess")
-    public ModelAndView IdCheckProcessController(ModelAndView ModelAndView, HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "/idcheckprocess.do" , method=RequestMethod.POST)
+    @ResponseBody
+    public HashMap<String, Object> idCheckProcessController(@RequestParam("id") String id) throws Exception {
+        HashMap<String, Object> map = new HashMap();
 
+        System.out.println("AJAX 기동!!");
+        MemberVo memberVo = new MemberVo();
 
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("login/idcheckpage");
-
-        return mv;
+        memberVo.setId(id);
+        memberVo.setPassword(null);
+        int countOfMember = memberService.isMember(memberVo);
+        if(countOfMember > 0){
+            map.put("returnkey","1");
+        }else{
+            map.put("returnkey","0");
+        }
+        return map;
     }
+
+    @RequestMapping(value = "/test.action", method = { RequestMethod.POST })
+    public void test(@RequestParam("name") String name,
+                     @RequestParam("age") String age,
+                     @RequestParam("gender") String gender) {
+
+        System.out.println(name);
+        System.out.println(age);
+        System.out.println(gender);
+    }
+
+    @RequestMapping(value = "/jusoPopup.do")
+    public ModelAndView jusoPopup(ModelAndView ModelAndView, HttpServletRequest request, @RequestParam HashMap<String, String> p, Locale locale) {
+
+        System.out.println("jusoPopup 컨트롤러 실행!!!");
+
+        // callback 함수가 실행되어야하니 호출한 html 파일로 return
+        ModelAndView mav = new ModelAndView("login/jusopopup");
+
+        String inputYn = request.getParameter("inputYn");
+        String zipNo = request.getParameter("zipNo");
+        String roadAddrPart1 = request.getParameter("roadAddrPart1");
+        String roadAddrPart2 = request.getParameter("roadAddrPart2");
+        String addrDetail = request.getParameter("addrDetail");
+        String jibunAddr = request.getParameter("jibunAddr");
+
+        mav.addObject("inputYn", inputYn);
+        mav.addObject("zipNo", zipNo);
+        mav.addObject("roadAddrPart1", roadAddrPart1);
+        mav.addObject("roadAddrPart2", roadAddrPart2);
+        mav.addObject("jibunAddr", jibunAddr);
+        mav.addObject("addrDetail", addrDetail);
+
+        return mav;
+    }
+
 
 }

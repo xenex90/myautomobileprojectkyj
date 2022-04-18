@@ -10,6 +10,7 @@ public class MemberVo {
     private int phonenum;
     private String email;
     private String domain;
+    private String address2;
 
     public int getSeq() {
         return seq;
@@ -81,5 +82,13 @@ public class MemberVo {
 
     public String getDomain() {
         return domain;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
     }
 }

@@ -3,26 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+        <script th:inline="javascript">
+            $(document).ready(function(){
+
+
+                $("#domain").change(function(){
+                    if($('#domain').val() == "직접 입력"){
+                        //$('#domain').css('display',"none");
+                        $('#domain2').css('display',"inline");
+                    }
+                    if($('#domain').val() != "직접 입력"){
+                        //$('#domain').css('display',"none")
+                        $('#domain2').val("");
+                        $('#domain2').css('display',"none");
+                    }
+                });
+
+
+                $('#submit').click(function() {
+                    if ($('#id').val() == '' || $('#id').val() == null) {
+                        alert("id 값을 입력해 주세요");
+                        return false;
+                    }
+                    if ($('#password').val() == '' || $('#password').val() == null) {
+                        alert("password 값을 입력해 주세요");
+                        return false;
+                    }
+
+                    var passRule = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; //특수문자 / 문자 / 숫자 포함 형태의 8~15자리 이내의 암호 정규식
+
+                    if(!passRule.test($("input[id='password']").val())) {
+
+                        alert('비밀번호를 형식 다시 확인해 주세요');
+
+                        return false;
+                    }
+
+                    if ($('#password').val() != $('#confimpassword').val()) {
+                        alert("password와 패스워드 확인 값을 확인해주세요");
+                        return false;
+                    }
+                    if ($('#name').val() == '' || $('#name').val() == null) {
+                        alert("이름을 입력해 주세요");
+                        return false;
+                    }
+                    if ($('#birthday').val() == '' || $('#birthday').val() == null) {
+                        alert("생일을 입력해 주세요");
+                        return false;
+                    }
+                    if ($('#address').val() == '' || $('#address').val() == null) {
+                        alert("주소을 입력해 주세요");
+                        return false;
+                    }
+                    if ($('#phonenum').val() == '' || $('#phonenum').val() == null) {
+                        alert("폰번호를 입력해 주세요");
+                        return false;
+                    }
+
+                    var phoneCheck = /^\d{3}-\d{3,4}-\d{4}$/;//핸드폰전화번호 정규식
+
+                    if(!phoneCheck.test($("input[id='phonenum']").val())) {
+                        alert("핸드폰전화번호 형식을 확인 해주세요");
+                        return false;
+                    }
+
+                    if ($('#email').val() == '' || $('#email').val() == null) {
+                        alert("email 입력해 주세요");
+                        return false;
+                    }
+                    if ($('#domain').val() == '' || $('#domain').val() == null) {
+                        alert("domain 값을 입력해 주세요");
+                        return false;
+                    }
+
+                    var emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
+                    if(!emailCheck.test($("input[id='email']").val()+$('#domain').val())) {
+                        alert("email 형식을 확인 해주세요");
+                        return false;
+                    }
+
+                });
+
+
+                $('#iddupcheck').click(function() {
+                    let userId = $('#id').val(); // id에 입력되는 값
+                    console.log(userId);
+                    $.ajax({
+                        url : "/login/idcheckprocess.do",
+                        type : "post",
+                        data : {id: userId},
+                        dataType: "json",
+                        success : function(result){
+                            if(result.returnkey == "1"){
+                                $("#iddupcheckdiv").html($('#id').val() + '는 사용할 수 없는 아이디입니다.');
+                                $("#iddupcheckdiv").css('color','red');
+
+                            } else{
+                                $("#iddupcheckdiv").html('사용할 수 있는 아이디입니다.');
+                                $("#iddupcheckdiv").css('color','green');
+                            }
+                        },
+                        error : function(){
+                            alert("서버요청실패");
+                        }
+                    })
+
+                })
+    });
+            function openPopup() {
+                window.name = "joinPage";
+                window.open("jusopopup.html", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
+            }
+s
+            function jusoCallBack(zipNo, roadAddrPart1, roadAddrPart2, jibunAddr, addrDetail){
+                $("#zipcode").val(zipNo);
+                $("#address").val(roadAddrPart1);
+                //$("#tp_address_add_number_address").val(jibunAddr);
+                $("#address2").val(addrDetail);
+            }
+
+    </script>
+
 </head>
-<body>
-<form name="form" action="/login/joinprocess" method="post">
-    <div><div>id</div><div><input type="text" name = "id"/></div></div>
-    <div><div>password</div><input type="password" name = "password"/></div>
-    <div><div>password확인</div><input type="password"/></div>
-    <div><div>이름</div><input type="text" name = "name"/></div>
-    <div><div>생년월일</div><input type="text" name = "birthday"/></div>
-    <div><div>주소</div><input type="text" name = "address"/></div>
-    <div><div>폰번호</div><input type = "text" name = "phonenum"/></div>
-    <div><div>email</div><input type = "text" naem = "text"/>@
+    <body onload="init();">
+        <form name="form" action="/login/joinprocess" method="post">
+            <div><div>id</div><div><input type="text" id = "id" name = "id"/></div><div id="iddupcheck">아이디 중복체크</div><div id="iddupcheckdiv"></div></div>
+            <div><div>password  (특수문자 / 문자 / 숫자 포함 형태의 8~15자리 이내의 암호)</div><input type="password" id = "password" name = "password"/></div>
+            <div><div>password확인</div><input type="password" id = "confimpassword"/></div>
+            <div><div>이름</div><input type="text" id = "name" name = "name"/></div>
+            <div><div>생년월일</div><input type="text" id = "birthday" name = "birthday"/></div>
+            <div><div>우편번호</div><input type="text" id = "zipcode" name = "zipcode"/>주소<input type="text" id = "address" name = "address"/></div><div onclick="openPopup();">도로명 주소 검색</div>
+            상세주소<input type="text" id = "address2" name = "address2"/></div>
+            <div><div>폰번호</div><input type = "text" id = "phonenum" name = "phonenum"/></div>
+            <div><div>email</div><input type = "text" id = "email" name = "email"/>@
 
-        <select name="domain">
-            <option value="">도메인 선택</option>
-            <option value="naver.com" selected>naver.com</option>
-            <option value="daum.net" >daum.net</option>
-        </select>
+                <select id = "domain" name="domain">
+                    <option value="" selected>도메인 선택</option>
+                    <option value="직접 입력">직접 입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="daum.net" >daum.net</option>
+                </select>
 
-       </div></div>
-   <input type = "submit" value = "회원가입"><a href = "../index.html">돌아가기</a>
-</form>
-</body>
+                <input type="text" id = "domain2" name = "domain" style="display: none">
+
+
+               </div></div>
+           <input type = "submit" id = "submit" value = "회원가입"><a href = "../index.html">돌아가기</a>
+        </form>
+
+    </body>
 </html>

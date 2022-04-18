@@ -9,10 +9,17 @@
 
 
     <insert id="insertMember" >
-        INSERT INTO member (seq ,id, name, password, birthday, address, phonenum) VALUES (#{seq} ,#{id},#{name},#{password},#{birthday},#{address},#{phonenum})
+        INSERT INTO member (seq ,id, name, password, birthday, address, phonenum, email, domain, zipcode, address2) VALUES (#{seq} ,#{id},#{name},#{password},#{birthday},#{address},#{phonenum}, #{email}, #{domain}, null, #{address2})
     </insert>
 
     <select id="countMember" parameterType="hashMap" resultType="java.lang.Integer">
-        SELECT count(*) FROM member WHERE id = #{id} and password = #{password}
+        SELECT count(*) FROM member WHERE id = #{id} <if test='password != null and password.equals("")'> and password = #{password} </if>
+    </select>
+
+    <select id="getIdOfMember" parameterType="hashMap" resultType="com.example.myautomobileprojectkyj.vo.MemberVo">
+        SELECT * FROM member WHERE id = #{id}
+        <if test="phonenum != null or phonenum != ''"> and phonenum = #{phonenum}</if>
+        <if test="email != null or email != ''"> and email = #{email}</if>
+        <if test="domain != null or domain != ''"> and domain = #{domain}</if>
     </select>
 </mapper>
