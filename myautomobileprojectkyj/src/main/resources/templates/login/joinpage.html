@@ -11,15 +11,16 @@
             $(document).ready(function(){
 
 
-                $("#domain").change(function(){
-                    if($('#domain').val() == "직접 입력"){
+                $("#domain2").change(function(){
+                    if($("#domain2 option:selected").text() == "직접 입력"){
                         //$('#domain').css('display',"none");
-                        $('#domain2').css('display',"inline");
+                        $('#domain').attr("disabled",false);
+                        $('#domain').val("");
                     }
-                    if($('#domain').val() != "직접 입력"){
+                    if($("#domain2 option:selected").text() != "직접 입력"){
                         //$('#domain').css('display',"none")
-                        $('#domain2').val("");
-                        $('#domain2').css('display',"none");
+                        $('#domain').attr("disabled",true);
+                        $('#domain').val($("#domain2 option:selected").val());
                     }
                 });
 
@@ -64,7 +65,7 @@
                         return false;
                     }
 
-                    var phoneCheck = /^\d{3}-\d{3,4}-\d{4}$/;//핸드폰전화번호 정규식
+                    var phoneCheck = /^\d{3}\d{3,4}\d{4}$/;//핸드폰전화번호 정규식
 
                     if(!phoneCheck.test($("input[id='phonenum']").val())) {
                         alert("핸드폰전화번호 형식을 확인 해주세요");
@@ -75,13 +76,21 @@
                         alert("email 입력해 주세요");
                         return false;
                     }
-                    if ($('#domain').val() == '' || $('#domain').val() == null) {
-                        alert("domain 값을 입력해 주세요");
-                        return false;
+                    if($("#domain2 option:selected").text() == "직접 입력"){
+                        if ($('#domain').val() == '' || $('#domain').val() == null) {
+                            alert("domain 값을 입력해 주세요");
+                            return false;
+                        }
+                    }else{
+                        if ($('#domain2').val() == '' || $('#domain2').val() == null) {
+                            alert("domain 값을 입력해 주세요");
+                            return false;
+                        }
                     }
 
                     var emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
-                    if(!emailCheck.test($("input[id='email']").val()+$('#domain').val())) {
+                    alert($("input[id='email']").val()+"@"+$('#domain').val());
+                    if(!emailCheck.test($("input[id='email']").val()+"@"+$('#domain').val())) {
                         alert("email 형식을 확인 해주세요");
                         return false;
                     }
@@ -118,7 +127,7 @@
                 window.name = "joinPage";
                 window.open("jusopopup.html", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
             }
-s
+
             function jusoCallBack(zipNo, roadAddrPart1, roadAddrPart2, jibunAddr, addrDetail){
                 $("#zipcode").val(zipNo);
                 $("#address").val(roadAddrPart1);
@@ -129,7 +138,7 @@ s
     </script>
 
 </head>
-    <body onload="init();">
+    <body>
         <form name="form" action="/login/joinprocess" method="post">
             <div><div>id</div><div><input type="text" id = "id" name = "id"/></div><div id="iddupcheck">아이디 중복체크</div><div id="iddupcheckdiv"></div></div>
             <div><div>password  (특수문자 / 문자 / 숫자 포함 형태의 8~15자리 이내의 암호)</div><input type="password" id = "password" name = "password"/></div>
@@ -139,16 +148,16 @@ s
             <div><div>우편번호</div><input type="text" id = "zipcode" name = "zipcode"/>주소<input type="text" id = "address" name = "address"/></div><div onclick="openPopup();">도로명 주소 검색</div>
             상세주소<input type="text" id = "address2" name = "address2"/></div>
             <div><div>폰번호</div><input type = "text" id = "phonenum" name = "phonenum"/></div>
-            <div><div>email</div><input type = "text" id = "email" name = "email"/>@
+            <div><div>email</div><input type = "text" id = "email" name = "email"/>@<input type = "text" id = "domain" name = "domain" value = ""/>
 
-                <select id = "domain" name="domain">
+                <select id = "domain2" name="domain2" class = "domain2">
                     <option value="" selected>도메인 선택</option>
-                    <option value="직접 입력">직접 입력</option>
+                    <option value="" selected>직접 입력</option>
                     <option value="naver.com">naver.com</option>
                     <option value="daum.net" >daum.net</option>
                 </select>
 
-                <input type="text" id = "domain2" name = "domain" style="display: none">
+
 
 
                </div></div>
