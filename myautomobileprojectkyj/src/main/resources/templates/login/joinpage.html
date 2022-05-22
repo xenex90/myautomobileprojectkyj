@@ -99,6 +99,11 @@
 
 
                 $('#iddupcheck').click(function() {
+                    if($('#id').val() == null || $('#id').val() == ""){
+                        alert('아이디를 입력해주세요');
+                        return false;
+                    }
+
                     let userId = $('#id').val(); // id에 입력되는 값
                     console.log(userId);
                     $.ajax({

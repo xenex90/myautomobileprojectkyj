@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.myautomobileprojectkyj.mapper.MemberMapper">
     <select id="selectMember" resultType="com.example.myautomobileprojectkyj.vo.MemberVo" parameterType="hashMap">
-        SELECT * FROM member WHERE id = #{id} and password = #{password}
+        SELECT * FROM member WHERE id = #{id} and password = #{password} limit 1
     </select>
 
 
