@@ -13,7 +13,7 @@
     </insert>
 
     <select id="countMember" parameterType="hashMap" resultType="java.lang.Integer">
-        SELECT count(*) FROM member WHERE id = #{id} <if test='password != null and password.equals("")'> and password = #{password} </if>
+        SELECT count(*) FROM member WHERE id = #{id} <if test="password != null and !password.equals('')"> and password = #{password} </if>
     </select>
 
     <select id="getIdOfMember" parameterType="hashMap" resultType="com.example.myautomobileprojectkyj.vo.MemberVo">

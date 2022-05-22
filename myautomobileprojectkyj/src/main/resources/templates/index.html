@@ -13,6 +13,12 @@
     }
 
     $(document).ready(function() {
+
+
+        if (window.location.href.indexOf("loginprocess") > -1) {
+           // alert("메인화면으로 돌아갑니다");
+            //window.location.href('https://localhost:8080/index');
+        }
         $("#logoutdiv").click(function () {
             //alert('로그아웃되었습니다.');
 
@@ -45,10 +51,10 @@
     <title>Main 화면입니다.</title>
 </head>
 <body>
-<div><a href="../login/loginpage.html">로그인페이지</a></div>
-<div><a href="../login/joinpage.html">회원가입</a></div>
+<div th:if="${#strings.isEmpty(id)}"}><a href="../login/loginpage.html">로그인페이지</a></div>
+<div th:if="${#strings.isEmpty(id)}"}><a href="../login/joinpage.html">회원가입</a></div>
 <div id = "logoutdiv" name ="logoutdiv">로그아웃</div>
 <div>게시판</div>
-<div>아이디 찾기</div>
+<div th:if="${#strings.isEmpty(id)}"}>아이디 찾기</div>
 </body>
 </html>

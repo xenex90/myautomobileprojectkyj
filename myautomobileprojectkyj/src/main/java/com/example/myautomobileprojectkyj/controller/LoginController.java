@@ -70,13 +70,19 @@ public class LoginController {
     }
 
     @RequestMapping("/loginprocess")
-    public ModelAndView loginProcessController(ModelAndView ModelAndView,HttpServletRequest request, HttpServletResponse response, String id, String password) throws Exception {
+    public ModelAndView loginProcessController(ModelAndView ModelAndView,HttpServletRequest request,
+                                               HttpServletResponse response, String id, String password) throws Exception {
 
         ModelAndView mv = new ModelAndView();
         MemberVo memberVo = new MemberVo();
 
         int countOfMember = 0;
-
+        String currentURL = request.getRequestURI();
+        if((id == null || id == "") && currentURL.contains("loginprocess")){
+            mv.setViewName("redirect:/");
+            LOG.info("새로고침 이슈로 index로 돌아갑니다.");
+            return mv;
+        }
         System.out.println("loginprocess 싫행");
 
         if(id != null && password != null){
@@ -85,7 +91,14 @@ public class LoginController {
             countOfMember = memberService.isMember(memberVo);
             if( countOfMember > 0) {
                 memberVo = memberService.loginMember(id, password);
+                if(memberVo == null){
+                    mv.addObject("loginResult","2");
+                    mv.setViewName("login/loginpage");
+                    System.out.println("해당 비번에 맞는 아이디가 없어 로그인 실패");
+                    return mv;
+                }
             }
+
         }
 
 
