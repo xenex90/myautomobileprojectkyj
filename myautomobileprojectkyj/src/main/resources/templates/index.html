@@ -11,6 +11,9 @@
     if (loginResult == "1"){
         alert("id : " + [[${id}]] +" 로그인 되었습니다.")
     }
+    if (loginResult == "3"){
+        alert("id : " + [[${id}]] +" 로그인 되어있습니다.")
+    }
 
     $(document).ready(function() {
 
@@ -30,6 +33,7 @@
                 success: function (result) {
                     if (result.loginParam == "N") {
                         alert("로그아웃되었습니다.");
+                        window.location.href = 'https://localhost:8080';
                     } else {
                         alert("로그아웃에 실패하였습니다.");
                     }
@@ -39,6 +43,10 @@
                 }
             });
 
+        });
+
+        $('#findiddiv').click(function (){
+            window.location.href = 'https://localhost:8080/findid';
         });
     });
 
@@ -55,6 +63,6 @@
 <div th:if="${#strings.isEmpty(id)}"}><a href="../login/joinpage.html">회원가입</a></div>
 <div id = "logoutdiv" name ="logoutdiv">로그아웃</div>
 <div>게시판</div>
-<div th:if="${#strings.isEmpty(id)}"}>아이디 찾기</div>
+<div th:if="${#strings.isEmpty(id)}"}><a href="../login/findId.html">아이디 찾기</a></div>
 </body>
 </html>

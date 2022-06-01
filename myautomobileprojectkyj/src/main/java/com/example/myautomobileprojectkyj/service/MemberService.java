@@ -2,6 +2,8 @@ package com.example.myautomobileprojectkyj.service;
 
 import com.example.myautomobileprojectkyj.vo.MemberVo;
 
+import java.util.HashMap;
+
 
 public interface MemberService{
 
@@ -11,5 +13,7 @@ public interface MemberService{
 
     int isMember(MemberVo memberVo) throws Exception;
 
-    MemberVo selectMember(MemberVo memberVo) throws Exception;
+    String selectMember(HashMap<String,String> map) throws Exception;
+
+    int countOfIdMember(HashMap<String, String> map) throws Exception;
 }

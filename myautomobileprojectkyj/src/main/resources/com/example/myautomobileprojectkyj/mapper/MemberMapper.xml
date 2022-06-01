@@ -22,4 +22,15 @@
         <if test="email != null or email != ''"> and email = #{email}</if>
         <if test="domain != null or domain != ''"> and domain = #{domain}</if>
     </select>
+
+    <select id="getIdOfMember" parameterType="hashMap" resultType="Integer">
+        SELECT id FROM member WHERE password = #{password} and email = #{email}#
+    </select>
+
+    <select id="getIdOfMemberCount" parameterType="hashMap" resultType="Integer">
+        SELECT count(*) FROM member WHERE
+        <if test="phonenum != null or phonenum != ''"> and phonenum = #{phonenum}</if>
+        <if test="email != null or email != ''"> and email = #{email}</if>
+        <if test="domain != null or domain != ''"> and domain = #{domain}</if>
+    </select>
 </mapper>

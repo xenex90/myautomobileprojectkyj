@@ -7,6 +7,7 @@ import org.apache.ibatis.logging.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.model.IModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -230,5 +231,27 @@ public class LoginController {
         return mav;
     }
 
+    @RequestMapping(value = "/findid" , method=RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView findIdController(ModelAndView mv) throws Exception {
+
+        mv.setViewName("findid");
+        return mv;
+    }
+
+    @RequestMapping(value = "/findid.do" , method=RequestMethod.POST)
+    @ResponseBody
+    public String findIdAJaxController(ModelAndView mv, String phonenum, String email) throws Exception {
+        HashMap<String, String> map = new HashMap();
+        map.put("phonenum",phonenum);
+        map.put("email",email);
+        String id = null;
+        if(memberService.countOfIdMember(map) > 0) {
+            id = memberService.selectMember(map);
+        }else{
+            id = null;
+        }
+        return id;
+    }
 
 }
