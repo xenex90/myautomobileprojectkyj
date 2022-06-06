@@ -22,7 +22,7 @@ public class LoginController {
 
     private final MemberService memberService;
 
-    private final static Logger LOG = Logger.getGlobal();
+    private final static Logger log = Logger.getGlobal();
 
     public LoginController(MemberService memberService) {
         this.memberService = memberService;
@@ -81,7 +81,7 @@ public class LoginController {
         String currentURL = request.getRequestURI();
         if((id == null || id == "") && currentURL.contains("loginprocess")){
             mv.setViewName("redirect:/");
-            LOG.info("새로고침 이슈로 index로 돌아갑니다.");
+            log.info("새로고침 이슈로 index로 돌아갑니다.");
             return mv;
         }
         System.out.println("loginprocess 싫행");
@@ -144,7 +144,7 @@ public class LoginController {
             map.put("loginParam","N");
             System.out.println("로그아웃 프로세스 실행");
             session.removeAttribute("loginSession");
-            LOG.info("id = "+ session.getAttribute("loginSession"));
+            log.info("id = "+ session.getAttribute("loginSession"));
         }else{
             map.put("loginParam","Y");
             System.out.println("로그아웃 프로세스 실행실패");
@@ -231,27 +231,46 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping(value = "/findid" , method=RequestMethod.POST)
-    @ResponseBody
-    public ModelAndView findIdController(ModelAndView mv) throws Exception {
-
-        mv.setViewName("findid");
+    @RequestMapping(value = "/findid")
+    public ModelAndView findIdController(ModelAndView mv,String phonenum, String domain, String email) throws Exception {
+        HashMap<String, String> map = new HashMap();
+        map.put("phonenum",phonenum);
+        map.put("email",email);
+        map.put("domain",domain);
+        String id = null;
+        System.out.println("findidController 실행 !!!");
+        log.info("*****phonenum******");
+        log.info(phonenum);
+        log.info("*******email********");
+        log.info(email);
+        log.info("***********domain*************");
+        log.info(domain);
+        mv.setViewName("login/finededid");
+        if(memberService.countIdOfMember(map) > 0) {
+            id = memberService.getIdOfMember(map);
+            mv.addObject("id",id);
+        }else{
+            id = null;
+        }
         return mv;
     }
 
-    @RequestMapping(value = "/findid.do" , method=RequestMethod.POST)
+    /*@RequestMapping(value = "/findid.do" , method=RequestMethod.POST)
     @ResponseBody
-    public String findIdAJaxController(ModelAndView mv, String phonenum, String email) throws Exception {
+    public ModelAndView findIdAJaxController(ModelAndView mv, String phonenum, String email) throws Exception {
         HashMap<String, String> map = new HashMap();
         map.put("phonenum",phonenum);
         map.put("email",email);
         String id = null;
-        if(memberService.countOfIdMember(map) > 0) {
-            id = memberService.selectMember(map);
+        if(memberService.countIdOfMember(map) > 0) {
+            id = memberService.getIdOfMember(map);
+            mv.setViewName("finededid");
         }else{
             id = null;
         }
-        return id;
+        return mv;
     }
+    */
+
 
 }

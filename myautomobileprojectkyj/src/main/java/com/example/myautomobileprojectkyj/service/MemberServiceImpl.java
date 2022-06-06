@@ -37,12 +37,15 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.countMember(map);
     }
 
-    public String selectMember(HashMap<String,String> map) {
+    public MemberVo selectMember(HashMap<String,String> map) {
 
-        return memberMapper.getIdOfMember(map);
+        return memberMapper.selectMember(map);
     }
 
-    public int countOfIdMember(HashMap<String,String> map){
+    public int countIdOfMember(HashMap<String,String> map){
         return (int)memberMapper.getIdOfMemberCount(map);
+    }
+    public String getIdOfMember(HashMap<String,String> map){
+        return memberMapper.getIdOfMember(map);
     }
 }

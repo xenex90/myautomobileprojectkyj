@@ -12,6 +12,8 @@ public class MemberVo {
     private String domain;
     private String address2;
 
+    private int zipcode;
+
     public int getSeq() {
         return seq;
     }
@@ -90,5 +92,13 @@ public class MemberVo {
 
     public void setAddress2(String address2) {
         this.address2 = address2;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
     }
 }
