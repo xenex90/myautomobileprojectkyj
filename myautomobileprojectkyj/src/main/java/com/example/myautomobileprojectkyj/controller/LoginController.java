@@ -2,8 +2,8 @@ package com.example.myautomobileprojectkyj.controller;
 
 import com.example.myautomobileprojectkyj.service.MemberService;
 import com.example.myautomobileprojectkyj.vo.MemberVo;
-import java.util.logging.*;
-import org.apache.ibatis.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +22,7 @@ public class LoginController {
 
     private final MemberService memberService;
 
-    private final static Logger log = Logger.getGlobal();
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public LoginController(MemberService memberService) {
         this.memberService = memberService;
@@ -233,7 +233,7 @@ public class LoginController {
 
     @RequestMapping(value = "/findid")
     public ModelAndView findIdController(ModelAndView mv,String phonenum, String domain, String email) throws Exception {
-        HashMap<String, String> map = new HashMap();
+        HashMap<String, Object> map = new HashMap();
         map.put("phonenum",phonenum);
         map.put("email",email);
         map.put("domain",domain);
@@ -245,7 +245,7 @@ public class LoginController {
         log.info(email);
         log.info("***********domain*************");
         log.info(domain);
-        mv.setViewName("login/finededid");
+        mv.setViewName("login/findid");
         if(memberService.countIdOfMember(map) > 0) {
             id = memberService.getIdOfMember(map);
             mv.addObject("id",id);
@@ -271,6 +271,27 @@ public class LoginController {
         return mv;
     }
     */
+
+    @RequestMapping(value = "/findidprocess.do" , method=RequestMethod.POST)
+    @ResponseBody
+    public HashMap<String, Object> findIdProcessController(@RequestParam("email") String email,
+                                                           @RequestParam("phonenum") int phonenum,
+                                                           @RequestParam("domain") String domain) throws Exception {
+        HashMap<String, Object> map = new HashMap();
+
+        log.info("findIdProcessController 기동!!!");
+
+        map.put("email",email);
+        map.put("domain",domain);
+        map.put("phonenum",phonenum);
+        int countOfMember = memberService.countIdOfMember(map);
+        if(countOfMember > 0){
+            map.put("returnkey","1");
+        }else{
+            map.put("returnkey","0");
+        }
+        return map;
+    }
 
 
 }

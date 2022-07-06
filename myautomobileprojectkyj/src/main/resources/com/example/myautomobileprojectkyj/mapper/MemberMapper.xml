@@ -8,9 +8,11 @@
     </select>
 
 
-    <insert id="insertMember" ><![CDATA[
-        INSERT INTO member (seq ,id, name, password, birthday, address, phonenum, email, domain, zipcode, address2) VALUES (#{seq} ,#{id},#{name},#{password},#{birthday},#{address},#{phonenum}, #{email}, #{domain}, null, #{address2})
-    ]]></insert>
+    <insert id="insertMember" parameterType="com.example.myautomobileprojectkyj.vo.MemberVo">
+        <![CDATA[
+            INSERT INTO member (seq ,id, name, password, birthday, address, phonenum, email, domain, zipcode, address2) VALUES (#{seq} ,#{id},#{name},#{password},#{birthday},#{address},#{phonenum}, #{email}, #{domain}, #{zipcode}, #{address2})
+        ]]>
+    </insert>
 
     <select id="countMember" parameterType="hashMap" resultType="java.lang.Integer">
         SELECT count(*) FROM member WHERE id = #{id} <if test="password != null and !password.equals('')"> and password = #{password} </if>

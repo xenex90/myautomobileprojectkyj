@@ -13,7 +13,7 @@ public interface MemberService{
 
     int isMember(MemberVo memberVo) throws Exception;
 
-    String getIdOfMember(HashMap<String,String> map) throws Exception;
+    String getIdOfMember(HashMap<String,Object> map) throws Exception;
 
-    int countIdOfMember(HashMap<String, String> map) throws Exception;
+    int countIdOfMember(HashMap<String, Object> map) throws Exception;
 }

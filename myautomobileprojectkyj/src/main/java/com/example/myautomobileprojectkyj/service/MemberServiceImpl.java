@@ -42,10 +42,10 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.selectMember(map);
     }
 
-    public int countIdOfMember(HashMap<String,String> map){
+    public int countIdOfMember(HashMap<String,Object> map){
         return (int)memberMapper.getIdOfMemberCount(map);
     }
-    public String getIdOfMember(HashMap<String,String> map){
+    public String getIdOfMember(HashMap<String,Object> map){
         return memberMapper.getIdOfMember(map);
     }
 }

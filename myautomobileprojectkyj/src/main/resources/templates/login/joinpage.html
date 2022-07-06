@@ -14,12 +14,12 @@
                 $("#domain2").change(function(){
                     if($("#domain2 option:selected").text() == "직접 입력"){
                         //$('#domain').css('display',"none");
-                        $('#domain').attr("disabled",false);
+                        $('#domain').attr("readonly",false);
                         $('#domain').val("");
                     }
                     if($("#domain2 option:selected").text() != "직접 입력"){
                         //$('#domain').css('display',"none")
-                        $('#domain').attr("disabled",true);
+                        $('#domain').attr("readonly",true);
                         $('#domain').val($("#domain2 option:selected").val());
                     }
                 });

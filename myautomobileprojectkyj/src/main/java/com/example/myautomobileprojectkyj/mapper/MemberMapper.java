@@ -17,5 +17,5 @@ public interface MemberMapper{
 
    String getIdOfMember(HashMap map);
 
-   int getIdOfMemberCount(HashMap<String, String> map);
+   int getIdOfMemberCount(HashMap<String, Object> map);
 }
