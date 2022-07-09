@@ -7,7 +7,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
+
         <script th:inline="javascript">
+            var checkId = "0";
             $(document).ready(function(){
 
 
@@ -24,10 +26,25 @@
                     }
                 });
 
+                $("#id").change(function (){
+                    checkId = "3";
+                    $("#iddupcheckdiv").html('아이디 중복체크 버튼을 눌러주세요');
+                    $("#iddupcheckdiv").css('color','red');
+                });
+
 
                 $('#submit').click(function() {
                     if ($('#id').val() == '' || $('#id').val() == null) {
                         alert("id 값을 입력해 주세요");
+                        return false;
+                    }
+
+                    if(checkId == "1"){
+                    }else if(checkId == "2"){
+                        alert("id가 중복되어 있습니다. 아이디를 변경 후 아이디 중복체크를 다시 진행해주세요");
+                        return false;
+                    }else if(checkId == "3" || checkId == "0"){
+                        alert("아이디 중복 체크를 진행해주세요");
                         return false;
                     }
                     if ($('#password').val() == '' || $('#password').val() == null) {
@@ -115,10 +132,12 @@
                             if(result.returnkey == "1"){
                                 $("#iddupcheckdiv").html($('#id').val() + '는 사용할 수 없는 아이디입니다.');
                                 $("#iddupcheckdiv").css('color','red');
+                                checkId = "2";
 
                             } else{
                                 $("#iddupcheckdiv").html('사용할 수 있는 아이디입니다.');
                                 $("#iddupcheckdiv").css('color','green');
+                                checkId = "1";
                             }
                         },
                         error : function(){

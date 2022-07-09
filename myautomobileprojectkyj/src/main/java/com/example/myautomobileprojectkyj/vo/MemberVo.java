@@ -7,7 +7,7 @@ public class MemberVo {
     private String password;
     private int birthday;
     private String address;
-    private int phonenum;
+    private String phonenum;
     private String email;
     private String domain;
     private String address2;
@@ -38,7 +38,7 @@ public class MemberVo {
         return address;
     }
 
-    public int getPhonenum() {
+    public String getPhonenum() {
         return phonenum;
     }
 
@@ -66,7 +66,7 @@ public class MemberVo {
         this.address = address;
     }
 
-    public void setPhonenum(int phonenum) {
+    public void setPhonenum(String phonenum) {
         this.phonenum = phonenum;
     }
 
