@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:inline="javascript">
+
+    </script>
+</head>
+<body>
+<form action="/login/idcheckprocess" method="post">
+    <div><div>이름</div><input type="text" name = "name"/></div>
+    <div><div>생년월일</div><input type="text" name = "birthday"/></div>
+    <div><div>폰번호</div><input type = "text" name = "phonenum"/></div>or
+    <div><div>email</div><input type = "text" name = "email"/></div>@
+
+    <select name="domain" >
+        <option value="">도메인 선택</option>
+        <option value="naver.com" selected>naver.com</option>
+        <option value="daum.net" >daum.net</option>
+    </select>
+<input type="submit" value = "찾기">
+</form>
+
+</body>
+</html>

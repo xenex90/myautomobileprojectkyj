@@ -245,7 +245,7 @@ public class LoginController {
         log.info(email);
         log.info("***********domain*************");
         log.info(domain);
-        mv.setViewName("login/findid");
+        mv.setViewName("login/finededid");
         if(memberService.countIdOfMember(map) > 0) {
             id = memberService.getIdOfMember(map);
             mv.addObject("id",id);
