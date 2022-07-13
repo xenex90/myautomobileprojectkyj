@@ -6,6 +6,9 @@
 </head>
 
 <script th:inline="javascript">
+    function goToHomeEvt(){
+        location.replace("/");
+    }
 </script>
 <body>
     <form id = "findiddiv" action = "/login/findid" method="post">
@@ -17,5 +20,6 @@
         <br>
         <input type = "submit" value = "ID 찾기"/>
     </form>
+    <input type="button" value="메인으로 가기" onclick="goToHomeEvt();"/>
 </body>
 </html>

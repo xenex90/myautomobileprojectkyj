@@ -61,7 +61,7 @@
 <body>
 <div th:if="${#strings.isEmpty(id)}"}><a href="../login/loginpage.html">로그인페이지</a></div>
 <div th:if="${#strings.isEmpty(id)}"}><a href="../login/joinpage.html">회원가입</a></div>
-<div id = "logoutdiv" name ="logoutdiv">로그아웃</div>
+<div th:if="${!#strings.isEmpty(id)}"} id = "logoutdiv" name ="logoutdiv">로그아웃</div>
 <div>게시판</div>
 <div th:if="${#strings.isEmpty(id)}"}><a href="../login/findId.html">아이디 찾기</a></div>
 </body>
