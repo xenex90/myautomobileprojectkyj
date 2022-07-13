@@ -1,7 +1,7 @@
 package com.example.myautomobileprojectkyj.controller;
 
 
-import org.apache.catalina.Session;
+import com.example.myautomobileprojectkyj.config.auth.SessionUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,17 +19,19 @@ public class CommonController {
         HashMap<String,String> map = new HashMap<>();
         ModelAndView mv = new ModelAndView();
         HttpSession session = request.getSession();
-        String id =(String) session.getAttribute("loginSession");
+        //String id =(String) session.getAttribute("loginSession");
+        SessionUser id = (SessionUser) session.getAttribute("loginSession");
         System.out.println("id ====" + id);
 
         if(id != null){
             System.out.println("로그인이 되어 있습니다");
             mv.addObject("loginResult","3");
-            mv.addObject("id",id);
+            mv.addObject("id",id.getName());
+            mv.addObject("userImg", id.getPicture());
         }else{
             System.out.println("로그인이 되어 있지 않습니다.");
             mv.addObject("loginResult","4");
-            mv.addObject("id",id);
+
         }
 
 

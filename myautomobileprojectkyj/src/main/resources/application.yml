@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    include: oauth
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/automobiledb?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnection=true
+    username: userkyj
+    password: 1234!
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  # JPA 데이터베이스 플랫폼 (InnoDB)
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update  # none, update, create, create-drop, validate
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true # GET, POST 뿐 만 아니라 PUT, DELETE 등의 메서드도 사용하기 위한 설정
+
+  devtools:
+    livereload:
+      enabled: true
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
+
+server:
+    ssl:
+      key-store: classpath:keystore.p12
+      key-store-type: PKCS12
+      key-store-password: 12345678
+      key-store-alias: keystore
