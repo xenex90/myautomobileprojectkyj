@@ -243,10 +243,13 @@ public class LoginController {
         System.out.println("findidController 실행 !!!");
         log.info("*****phonenum******");
         log.info(phonenum);
+        log.info("********************");
         log.info("*******email********");
         log.info(email);
+        log.info("********************");
         log.info("***********domain*************");
         log.info(domain);
+        log.info("******************************");
         mv.setViewName("login/finededid");
         if(memberService.countIdOfMember(map) > 0) {
             id = memberService.getIdOfMember(map);

@@ -4,11 +4,32 @@
     <meta charset="UTF-8">
     <title>Title</title>
 <script th:inline="javascript">
-
+    function goToLoginPageFn(){
+        location.replace("/login/loginpage.html");
+    }
+    function goToFindIdFn(){
+        location.replace("/login/findid.html");
+    }
+    function copyToClipBoard() {
+        let copyId = null;
+        if([[${id}]] != null || [[${id}]] != '') {
+            copyId = [[${id}]];
+        }
+        navigator.clipboard.writeText(copyId)
+            .then(() => {
+                alert("아이디가 클립보드에 복사되었습니다.");
+            })
+            .catch(err => {
+                console.log('아이디가 클립보드에 복사되지 않았습니다.', err);
+            })
+    }
 </script>
 </head>
 <body>
-<th:block data-th-if="${id != null}">회원님의 아이디는 [[${id}]] 입니다.</th:block>
+<th:block data-th-if="${id != null}">회원님의 아이디는 [[${id}]] 입니다.</th:block><div></div>
 <th:block data-th-unless="${id != null}">찾으시는 아이디가 없습니다.</th:block>
+<th:block data-th-if="${id != null}"><div onclick="goToLoginPageFn();">로그인 페이지로 돌아가기</div></th:block>
+<th:block data-th-unless="${id != null}"><div onclick="goToFindIdFn();">아이디 찾기로 돌아가기</div></th:block>
+<th:block data-th-if="${id != null}"><div onclick="copyToClipBoard();">아이디를 클립보드에 복사하기</div></th:block>
 </body>
 </html>
