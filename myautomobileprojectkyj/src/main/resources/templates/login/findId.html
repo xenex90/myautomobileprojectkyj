@@ -4,21 +4,38 @@
     <meta charset="UTF-8">
     <title>findID</title>
 </head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script th:inline="javascript">
     function goToHomeEvt(){
         location.replace("/");
     }
+
+
+    function  submitFindDiv (){
+        if($('#emailinput').val() == null || $('#emailinput').val() == ''){
+            alert('이메일을 입력해주세요');
+            return false;
+        }
+        if($('#domaininput').val() == null || $('#domaininput').val() == ''){
+            alert('도메인을 입력해주세요');
+            return false;
+        }
+        if($('#phonenuminput').val() == null || $('#phonenuminput').val() == ''){
+            alert('핸드폰 번호를 입력해주세요');
+            return false;
+        }
+        document.getElementById('findidfrm').submit();
+    }
 </script>
 <body>
-    <form id = "findiddiv" action = "/login/findid" method="post">
+    <form id = "findidfrm" action = "/login/findid" method="post">
         <div>이메일</div>
-        <input type ="text" name = "email"/>@
-        <input type ="text" name = "domain"/>
+        <input type ="text" name = "email" id="emailinput"/>@
+        <input type ="text" name = "domain" id="domaininput"/>
         <div>폰번호</div>
-        <input type = "text" name = "phonenum"/>
+        <input type = "text" name = "phonenum" id="phonenuminput"/>
         <br>
-        <input type = "submit" value = "ID 찾기"/>
+        <input type = "button" onclick="submitFindDiv()" value = "ID 찾기"/>
     </form>
     <input type="button" value="메인으로 가기" onclick="goToHomeEvt();"/>
 </body>
