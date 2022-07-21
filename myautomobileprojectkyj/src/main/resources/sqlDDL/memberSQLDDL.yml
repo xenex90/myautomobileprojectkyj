@@ -1,0 +1,17 @@
+
+create table member
+(
+    seq      int auto_increment
+        primary key,
+    id       varchar(20)  not null,
+    name     varchar(30)  not null,
+    password varchar(40)  null,
+    birthday int          null,
+    address  varchar(200) null,
+    phonenum varchar(20)  null,
+    email    varchar(200) null,
+    domain   varchar(100) null,
+    zipcode  int          null,
+    address2 varchar(200) null
+);
+
